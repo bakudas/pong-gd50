@@ -1,5 +1,5 @@
 
-push = require 'push'
+push = require 'push' -- importa a biblioteca push para criar uma resolução virtual
 
 
 WINDOW_WIDTH = 432
@@ -9,7 +9,7 @@ VIRTUAL_WIDTH = 432
 VIRTUAL_HEIGHT = 243
 
 pads = {
-    p1X = 20,
+    p1X = 10,
     p1Y = 50,
     p2X = WINDOW_WIDTH - 20,
     p2Y = 30,
@@ -18,6 +18,7 @@ pads = {
     speed = 100
 }
 
+-- INICIA O GAME
 function love.load()
 
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -37,6 +38,8 @@ function love.load()
 
 end
 
+
+-- MAPEIA OS EVENTOS DE TECLADO
 function love.keypressed(key , scancode, isrepeat)
     
     -- esc quita o jogo
@@ -46,26 +49,47 @@ function love.keypressed(key , scancode, isrepeat)
     
 end
 
+
+-- UPDATE
 function love.update(dt)
 
     -- controls
+    -- pad esquerdo
     if love.keyboard.isDown("w") then
         pads.p1Y = pads.p1Y - pads.speed * dt
-    end
-    
-    if love.keyboard.isDown("s") then
+    elseif love.keyboard.isDown("s") then
         pads.p1Y = pads.p1Y + pads.speed * dt
     end
+    -- pad direito
+    if love.keyboard.isDown("up") then
+        pads.p2Y = pads.p2Y - pads.speed * dt
+    elseif love.keyboard.isDown("down") then
+        pads.p2Y = pads.p2Y + pads.speed * dt   
+    end
 
+    -- mantem os pads dentro da tela
+    -- pad esquerdo
+    if pads.p1Y < 0 then
+        pads.p1Y = 0
+    elseif pads.p1Y + 40 > WINDOW_HEIGHT then
+        pads.p1Y = WINDOW_HEIGHT - 40
+    end
+    -- pad direito
+    if pads.p2Y < 0 then
+        pads.p2Y = 0
+    elseif pads.p2Y + 40 > WINDOW_HEIGHT then
+        pads.p2Y = WINDOW_HEIGHT - 40
+    end
 
 end
 
+
+-- DESENHA A TELA
 function love.draw()
 
     -- inicia a resolução virtual
     push:apply('start')
 
-    
     -- limpa a tela
     love.graphics.clear(0, 0, 0, 255)
     -- desenha textos
