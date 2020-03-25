@@ -1,4 +1,4 @@
-
+import conf.lua
 
 pad_left = {
     width = 10,
