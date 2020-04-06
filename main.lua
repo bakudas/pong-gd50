@@ -96,10 +96,14 @@ function love.draw()
     love.graphics.print("teste", 10 , 30)
     -- desenha a linha de divisão no centro
     love.graphics.line(WINDOW_WIDTH/2, 0, WINDOW_WIDTH/2, WINDOW_HEIGHT)
-    -- desenha o pad esquerdo
-    love.graphics.rectangle("fill", pads.p1X, pads.p1Y, pads.width, pads.height)
+    -- desenha o background da esquerda
+    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.rectangle("fill", 0, 0, WINDOW_WIDTH/2, WINDOW_HEIGHT)
     -- desenha o pad direito
     love.graphics.rectangle("fill", pads.p2X, pads.p2Y, pads.width, pads.height)
+    -- desenha o pad esquerdo
+    love.graphics.setColor(0, 0, 0, 255)
+    love.graphics.rectangle("fill", pads.p1X, pads.p1Y, pads.width, pads.height)
 
     -- finaliza a resolução virtual
     push:apply('end')
